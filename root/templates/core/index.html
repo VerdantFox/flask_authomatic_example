@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">This is our intro page!</h1>
+    <p class="lead">
+      Here we're going to just display info about you, the current user.
+      You provided this information by registering!
+    </p>
+    <hr class="my-4">
+    {% if current_user.is_authenticated %}
+      <p>You are logged in</p>
+      <p>Username: {{ current_user.username }}</p>
+      <p>Name: {{ current_user.name }}</p>
+      <p>Email: {{ current_user.email }}</p>
+      <!-- You would probably never show these last 4 categories to your users -->
+      <!-- BUT, at least your password isn't stored in clear text! -->
+      <p>Password hash: {{ current_user.pw_hash }}</p>
+      <p>Facebook ID: {{ current_user.facebook_id }}</p>
+      <p>Google ID: {{ current_user.google_id }}</p>
+      <p>Github ID: {{ current_user.github_id }}</p>
+    {% else %}
+      <p>You are not logged in</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock content %}
