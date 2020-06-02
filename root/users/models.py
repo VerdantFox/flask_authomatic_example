@@ -1,3 +1,4 @@
+"""User model"""
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 
@@ -26,9 +27,9 @@ class User(db.Document, UserMixin):
     password_hash = db.StringField(required=False, index=True)
 
     # Oauth stuff
-    github_id = db.LongField(unique=True, required=False, sparse=True, index=True)
     facebook_id = db.StringField(unique=True, required=False, sparse=True, index=True)
     google_id = db.StringField(unique=True, required=False, sparse=True, index=True)
+    github_id = db.LongField(unique=True, required=False, sparse=True, index=True)
 
     def __repr__(self):
         """Define what is printed for the user object"""

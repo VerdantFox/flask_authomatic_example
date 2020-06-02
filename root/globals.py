@@ -1,15 +1,10 @@
-"""Globals
+"""Global variables and objects to import into other modules.
 
-Global variables and objects to import into other modules.
-Kept separate to avoid inifinite import loops.
+Kept separate from factory to avoid inifinite import loops when importing
+these global objects into multiple modules.
 """
-import os
-
 from flask_login import LoginManager
 from flask_mongoengine import MongoEngine
-
-# Paths
-ROOT_PATH = os.path.abspath(os.path.dirname(__file__))
 
 # Database setup
 db = MongoEngine()

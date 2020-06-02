@@ -4,9 +4,9 @@ from bson import ObjectId, json_util
 from flask import Flask
 from flask.json import JSONEncoder
 
-from root.users.views import users
 from root.core.views import core
 from root.globals import db, login_manager
+from root.users.views import users
 
 
 class MongoJsonEncoder(JSONEncoder):
