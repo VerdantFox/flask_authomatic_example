@@ -11,6 +11,7 @@ from root.globals import db, login_manager
 
 class MongoJsonEncoder(JSONEncoder):
     """Adjustments to the Flask json encoder for MongoEngine support"""
+
     def default(self, obj):
         if isinstance(obj, datetime):
             return obj.strftime("%Y-%m-%d %H:%M:%S")

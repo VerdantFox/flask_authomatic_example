@@ -54,6 +54,7 @@ def profile(username):
 def settings():
     pass
 
+
 @users.route("/delete_account", methods=["GET", "POST"])
 def delete_account():
     """Delete current user's account"""
@@ -100,8 +101,24 @@ def oauth_disconnect(oauth_client):
 
 
 def oauth_generalized(oauth_client):
-    """Generalized oauth login, register, and account association"""
-    pass
+    """Generalized oauth data retrieval"""
+    # Get response object for the WerkzeugAdapter.
+    response = make_response()
+    # Log the user in, pass it the adapter and the provider name.
+    result = authomatic.login(WerkzeugAdapter(request, response), oauth_client)
+    # If there is no LoginResult object, the login procedure is still pending.
+    if not result:
+        return response
+    # If there is no result.user something went wrong
+    if not result.user:
+        return "Failed to retrieve oauth user"
+
+    # Update user to retrieve data
+    result.user.update()
+
+    # Return a dictionary containing the user data
+    # Flask automatically converts the dictionary to JSON
+    return result.user.data
 
 
 def login_and_redirect(user):
