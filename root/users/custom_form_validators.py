@@ -15,6 +15,7 @@ def safe_string():
     Requirements:
     - contains only letters, numbers, dashes and underscores
     """
+
     def validation(form, field):
         string = field.data.lower()
         pattern = re.compile(r"^[a-z0-9_-]+$")
@@ -35,7 +36,10 @@ def unique_or_current_user_field(message=None):
 
     def validation(form, field):
         kwargs = {field.name: field.data}
-        if getattr(current_user, field.name) == field.data:
+        if (
+            hasattr(current_user, field.name)
+            and getattr(current_user, field.name) == field.data
+        ):
             return
         if User.objects(**kwargs).first():
             raise ValidationError(message)

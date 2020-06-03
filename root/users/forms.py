@@ -10,7 +10,7 @@ class RegistrationForm(FlaskForm):
 
     email = StringField(
         "Email",
-        description="Email",
+        description="my@email.com",
         validators=[
             DataRequired(),
             Email(),
@@ -24,13 +24,18 @@ class RegistrationForm(FlaskForm):
             DataRequired(),
             unique_or_current_user_field("Username is already taken."),
             safe_string(),
-            Length(min=3, max=30),
+            Length(min=3, max=40),
         ],
+    )
+    name = StringField(
+        "John Doe",
+        description="John Doe",
+        validators=[DataRequired(), Length(min=1, max=80)],
     )
     password = PasswordField(
         "Password",
         description="Old password",
-        validators=[DataRequired(), Length(min=8, max=30)],
+        validators=[DataRequired(), Length(min=5, max=40)],
     )
     pass_confirm = PasswordField(
         "Confirm password",
@@ -57,11 +62,11 @@ class LoginForm(FlaskForm):
     submit = SubmitField("Log In")
 
 
-class UserSettingsForm(FlaskForm):
+class SettingsForm(FlaskForm):
     """Allow users to update their name, username, email and password"""
 
     name = StringField(
-        "Name", description="John Smith", validators=[Optional(), Length(max=60)],
+        "Name", description="John Smith", validators=[Optional(), Length(max=80)],
     )
     username = StringField(
         "Username",
@@ -70,12 +75,12 @@ class UserSettingsForm(FlaskForm):
             DataRequired(),
             unique_or_current_user_field("Username already exists."),
             safe_string(),
-            Length(min=3, max=30),
+            Length(min=3, max=40),
         ],
     )
     email = StringField(
         "Email",
-        description="Email",
+        description="my@email.com",
         validators=[
             DataRequired(),
             Email(),

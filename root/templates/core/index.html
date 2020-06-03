@@ -1,6 +1,6 @@
 {% extends "core/base.html" %}
 {% block content %}
-<div class="container">
+<div class="container text-center">
   <div class="jumbotron">
     <h1 class="display-4">This is our intro page!</h1>
     <p class="lead">
@@ -9,13 +9,14 @@
     </p>
     <hr class="my-4">
     {% if current_user.is_authenticated %}
-      <p>You are logged in</p>
+      <h3>You are logged in</h3>
       <p>Username: {{ current_user.username }}</p>
       <p>Name: {{ current_user.name }}</p>
       <p>Email: {{ current_user.email }}</p>
       <!-- You would probably never show these last 4 categories to your users -->
       <!-- BUT, at least your password isn't stored in clear text! -->
-      <p>Password hash: {{ current_user.pw_hash }}</p>
+      <p>Password hash:</p>
+      <p>{{ current_user.password_hash }}</p>
       <p>Facebook ID: {{ current_user.facebook_id }}</p>
       <p>Google ID: {{ current_user.google_id }}</p>
       <p>Github ID: {{ current_user.github_id }}</p>

@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from bson import ObjectId, json_util
@@ -26,6 +27,16 @@ def create_app():
     # Initiate app
     app = Flask(__name__)
     app.json_encoder = MongoJsonEncoder
+
+    # Update app.config from environment variables
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+    app.config["MONGODB_SETTINGS"] = {
+        "authentication_source": "admin",
+        "host": os.getenv("MONGODB_HOST"),
+        "port": int(os.getenv("MONGODB_PORT")),
+        "username": os.getenv("MONGODB_USERNAME"),
+        "password": os.getenv("MONGODB_PASSWORD"),
+    }
 
     # register blueprints
     app.register_blueprint(core, url_prefix="")
