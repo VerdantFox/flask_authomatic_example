@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container text-center">
+  <h1>Login</h1><br>
+  <h3>Login through a social platform</h3>
+  <p><a class="btn btn-primary" href="{{ url_for('users.facebook_oauth') }}">Facebook</a></p>
+  <p><a class="btn btn-primary" href="{{ url_for('users.google_oauth') }}">Google</a></p>
+  <p><a class="btn btn-primary" href="{{ url_for('users.github_oauth') }}">GitHub</a></p>
+  <br><h5><strong>-- OR --</strong></h5><br>
+  <h3>Use Traditional Login</h3>
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+      {{ form.username_or_email.label() }}
+      {{ form.username_or_email(class="form-control text-center", placeholder=form.username_or_email.description) }}
+      {% for error in form.username_or_email.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.password.label() }}
+      {{ form.password(class="form-control text-center", placeholder=form.password.description) }}
+      {% for error in form.password.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-lg btn-primary") }}
+  </form>
+</div>
+
+{% endblock content %}

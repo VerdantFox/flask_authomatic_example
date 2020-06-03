@@ -1,0 +1,58 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+<div class="container text-center">
+  <h1>Register</h1>
+  <h3>Sign up through a social platform</h3>
+  <p><a class="btn btn-primary" href="{{ url_for('users.facebook_oauth') }}">Facebook</a></p>
+  <p><a class="btn btn-primary" href="{{ url_for('users.google_oauth') }}">Google</a></p>
+  <p><a class="btn btn-primary" href="{{ url_for('users.github_oauth') }}">GitHub</a></p>
+  <br><h5><strong>-- OR --</strong></h5><br>
+  <h3>Create account with username/password</h3>
+  
+  <form method="POST">
+    {{ form.hidden_tag() }}
+    <!-- Email -->
+    <div class="form-group">
+      {{ form.email.label() }}
+      {{ form.email(class="form-control text-center", placeholder=form.email.description) }}
+      {% for error in form.email.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Username -->
+    <div class="form-group">
+      {{ form.username.label() }}
+      {{ form.username(class="form-control text-center", placeholder=form.username.description) }}
+      {% for error in form.username.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Name -->
+    <div class="form-group">
+      {{ form.name.label() }}
+      {{ form.name(class="form-control text-center", placeholder=form.name.description) }}
+      {% for error in form.name.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+      {{ form.password.label() }}
+      {{ form.password(class="form-control text-center", placeholder=form.password.description) }}
+      {% for error in form.password.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.pass_confirm.label() }}
+      {{ form.pass_confirm(class="form-control text-center", placeholder=form.pass_confirm.description) }}
+      {% for error in form.pass_confirm.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-lg btn-primary") }}
+  </form>
+</div>
+
+{% endblock content %}

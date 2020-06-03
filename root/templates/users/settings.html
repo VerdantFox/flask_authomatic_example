@@ -1,0 +1,128 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+
+<div class="container text-center">
+  <form  method="POST">
+    {{ form.hidden_tag() }}
+    <h1>Account Settings</h1><br>
+    <!-- Username -->
+    <div class="form-group">
+      {{ form.username.label(class="form-group") }}
+      {{ form.username(class="form-control text-center", placeholder=form.username.description) }}
+      {% for error in form.username.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Name -->
+    <div class="form-group">
+      {{ form.name.label(class="form-group") }}
+      {{ form.name(class="form-control text-center", placeholder=form.name.description) }}
+      {% for error in form.name.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Email -->
+    <div class="form-group">
+      {{ form.email.label(class="form-group") }}
+      {{form.email(class="form-control text-center", placeholder=form.email.description) }}
+      {% for error in form.email.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <!-- Password -->
+    <div class="form-group">
+      {{ form.new_pass.label() }}
+      {{ form.new_pass(class="form-control text-center", placeholder=form.new_pass.description) }}
+      {% for error in form.new_pass.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    <div class="form-group">
+      {{ form.pass_confirm.label() }}
+      {{ form.pass_confirm(class="form-control text-center", placeholder=form.pass_confirm.description) }}
+      {% for error in form.pass_confirm.errors %}
+        <p style="color: red">{{ error }}</p>
+      {% endfor %}
+    </div>
+    {{ form.submit(class="btn btn-lg btn-primary") }}
+  </form>
+
+  <br>
+  <h2>Social media connections</h2><br>
+
+  <!-- Facebook -->
+  <h3>Facebook</h3>
+  {% if current_user.facebook_id %}
+    <h5>Connected</h5>
+    {% if can_disconnect %}
+      <a href="{{ url_for('users.facebook_oauth_disconnect') }}" class="btn btn-warning">
+          Disconnect from Facebook
+      </a>
+    {% else %}
+      <button class="btn btn-warning" type="button" disabled>
+        Disconnect from Facebook
+      </button>
+      <p style="color: red">
+        You must define an email and password or connect
+        to another social oauth before disconnecting from Facebook.
+      </p>
+    {% endif %}
+  {% else %}
+    <h5><a class="btn btn-info" href="{{ url_for('users.facebook_oauth') }}">Connect to Facebook</a></h5>
+  {% endif %}
+  <br>
+
+  <!-- Google -->
+  <h3><i class="fab fa-google-plus-square"></i> Google</h3>
+  {% if current_user.google_id %}
+    <h5>Connected</h5>
+    {% if can_disconnect %}
+      <a class="btn btn-warning" href="{{ url_for('users.google_oauth_disconnect') }}">
+        Disconnect from Google
+      </a>
+    {% else %}
+      <button class="btn btn-warning" type="button" disabled>
+        Disconnect from Google
+      </button>
+      <p style="color: red">
+        You must define an email and password or connect
+        to another social oauth before disconnecting from Google.
+      </p>
+    {% endif %}
+  {% else %}
+    <h5><a class="btn btn-info" href="{{ url_for('users.google_oauth') }}">Connect to Google</a></h5>
+  {% endif %}
+  <br>
+
+  <!-- GitHub -->
+  <h3><i class="fab fa-github-square"></i> GitHub</h3>
+  {% if current_user.github_id %}
+    <h5>Connected</h5>
+    {% if can_disconnect %}
+      <a class="btn btn-warning" href="{{ url_for('users.github_oauth_disconnect') }}">
+          Disconnect from GitHub
+      </a>
+    {% else %}
+      <button class="btn btn-warning" type="button" disabled>
+        Disconnect from GitHub
+      </button>
+      <p style="color: red">
+        You must define an email and password or connect
+        to another social oauth before disconnecting from GitHub.
+      </p>
+    {% endif %}
+  {% else %}
+    <h5><a class="btn btn-info" href="{{ url_for('users.github_oauth') }}">Connect to GitHub</a></h5>
+  {% endif %}
+  <br><br>
+
+  <!-- Delete Account -->
+  <h2>Delete account?</h2>
+  <p>Warning: data stored will be irreversibly lost.</p>
+  <a class="btn btn-danger btn-lg" href="{{ url_for('users.delete_account') }}">
+    Delete account
+  </a>
+</div>
+
+{% endblock content %}
