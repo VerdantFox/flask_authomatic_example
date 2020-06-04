@@ -42,7 +42,7 @@ def create_app():
     app.register_blueprint(core, url_prefix="")
     app.register_blueprint(users, url_prefix="/users")
 
-    # initialize databases
+    # initialize database
     db.init_app(app)
 
     # initialize login manager
