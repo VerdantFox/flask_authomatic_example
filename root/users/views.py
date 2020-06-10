@@ -152,10 +152,7 @@ def can_oauth_disconnect():
     has_pw = True if current_user.password_hash else False
 
     oauth_count = [has_gh, has_gg, has_fb].count(True)
-    if oauth_count > 1 or (has_email and has_pw):
-        return True
-    else:
-        return False
+    return bool(oauth_count > 1 or (has_email and has_pw))
 
 
 def oauth_disconnect(oauth_client):
